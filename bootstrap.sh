@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # Update the system and install the servers
-yum update
 yum install -y httpd postgresql94-server
 chkconfig httpd on
 
