@@ -43,3 +43,6 @@ if [ ! -f /usr/local/bin/composer ]; then
 else
 	/usr/local/bin/composer self-update
 fi
+
+# Custom environment variables, aliases & paths
+cp /vagrant/home/.bashrc /home/vagrant
