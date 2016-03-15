@@ -32,3 +32,13 @@ fi
 cp /vagrant/etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
 
 service httpd start
+
+if [ ! -f /usr/local/bin/composer ]; then
+  # download the latest composer.phar version
+  curl -s https://getcomposer.org/installer | php
+
+  # Move to bin path
+  mv composer.phar /usr/local/bin/composer
+else
+  composer self-update
+fi
