@@ -7,6 +7,10 @@ chkconfig httpd on
 #install PHP including modules
 yum install -y httpd php-devel php-snmp php-xml php-xmlrpc php-soap php-ldap php-pgsql php-mcrypt php-mbstring php-gd php-tidy php-pspell php-pecl-memcache
 
+# use use a custom PHP configuration
+cp /vagrant/etc/php.ini /etc
+
+# isntall the PostgeSQL database
 PGDIR="/var/lib/pgsql/data"
 if ! [ "$(ls -A $PGDIR)" ]; then
 	echo $PGSIR "Initializing postgres db"
