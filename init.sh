@@ -4,6 +4,10 @@
 yum install -y httpd postgresql-server
 chkconfig httpd on
 
+# Install the EPEL repository and Node.js
+yum -y install epel-release
+yum -y install nodejs npm --enablerepo=epel
+
 #install PHP including modules
 yum install -y httpd php-devel php-snmp php-xml php-xmlrpc php-soap php-ldap php-pgsql php-mcrypt php-mbstring php-gd php-tidy php-pspell php-pecl-memcache
 
@@ -12,27 +16,29 @@ cp /vagrant/etc/php.ini /etc
 
 # install the PostgeSQL database
 PGDIR="/var/lib/pgsql/data"
+USER="postgres"
 if ! [ -d $PGDIR ] || ! [ "$(ls -A $PGDIR)" ]; then
-mkdir -p $PGDIR
-chown postgres:postgres $PGDIR
 echo "Setting up postgresql in $PGDIR"
-service postgresql initdb --locale en_US.UTF-8 --pwfile=/vagrant/etc/pgsql/pg_pw
+mkdir -p $PGDIR
+chown -R postgres:postgres /var/lib/pgsql/
+service postgresql initdb --locale en_US.UTF-8 -U $USER --pwfile=/vagrant/etc/pgsql/pg_pw
+cp /vagrant/etc/pgsql/pg_hba.conf $PGDIR
+chown -R postgres:postgres /var/lib/pgsql/
+echo "postgres:vagrant12345" | chpasswd
 chkconfig postgresql on
-cp /vagrant/etc/pgsql/pg_hba.conf /var/lib/pgsql/data/
 fi
 service postgresql start
 
-# Install the EPEL repository and Node.js
-yum -y install epel-release
-yum -y install nodejs npm --enablerepo=epel
-
-# Setup the web server's root directory
+# Setup the web servers root directory
 if ! [ -L /var/www ]; then
 rm -rf /var/www
 ln -fs /vagrant /var/www
 fi
 if ! [ -d /vagrant/html ]; then
 mkdir /vagrant/html
+fi
+if ! [ -d /vagrant/node ]; then
+mkdir /vagrant/node
 fi
 
 # Prevent the Apache warning "Could not reliably determine the server's fully qualified domain name"
@@ -52,3 +58,4 @@ fi
 
 # Custom environment variables, aliases & paths
 cp /vagrant/home/.bashrc /home/vagrant
+cp /vagrant/home/.bash_aliases /home/vagrant

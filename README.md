@@ -1,6 +1,12 @@
 # Vagrant PHP Silverstripe & Node.js w/ PostgreSQL Dev Environment
 
 This is a base vagrant virtual RHEL based system with Apache, PHP, and PostgreSQL intended for SilverStripe or PHHP development.
+The default ports are:
+
+| Guest | Host | Function                         |
+|-------|------|----------------------------------|
+| 80    | 8080 | HTTP                             |
+| 5432  | 8006 | PostgreSQL                       |
 
 Development Only
 ===
