@@ -1,4 +1,4 @@
-# Vagrant Silverstripe Development Environment
+# Vagrant PHP Silverstripe & Node.js w/ PostgreSQL Dev Environment
 
 This is a base vagrant virtual RHEL based system with Apache, PHP, and PostgreSQL intended for SilverStripe or PHHP development.
 

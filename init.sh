@@ -22,6 +22,10 @@ cp /vagrant/etc/pgsql/pg_hba.conf /var/lib/pgsql/data/
 fi
 service postgresql start
 
+# Install the EPEL repository and Node.js
+yum -y install epel-release
+yum -y install nodejs npm --enablerepo=epel
+
 # Setup the web server's root directory
 if ! [ -L /var/www ]; then
 rm -rf /var/www
