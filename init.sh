@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # Update the system and install the servers
+# Update the system and install the main servers
 yum install -y httpd postgresql-server
 chkconfig httpd on
 
@@ -10,6 +11,9 @@ yum -y install nodejs npm --enablerepo=epel
 
 #install PHP including modules
 yum install -y httpd php-devel php-snmp php-xml php-xmlrpc php-soap php-ldap php-pgsql php-mcrypt php-mbstring php-gd php-tidy php-pspell php-pecl-memcache
+
+# Install some useful development tools
+yum install -y vim, git
 
 # use use a custom PHP configuration
 cp /vagrant/etc/php.ini /etc
