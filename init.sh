@@ -30,8 +30,12 @@ chown -R postgres:postgres /var/lib/pgsql/
 
 chkconfig postgresql on
 fi
-# Reset the postgres user
 service postgresql start
+# Post install PostgreSQL setup steps
+sudo -i -u postgres psql -U postgres -c "ALTER USER postgres WITH PASSWORD 'vagrant12345';"
+cp /vagrant/etc/pgsql/pg_hba_md5.conf /var/lib/pgsql/data/pg_hba.conf
+chown -R postgres:postgres /var/lib/pgsql/
+service postgresql restart
 
 # Setup the web servers root directory
 if ! [ -L /var/www ]; then
