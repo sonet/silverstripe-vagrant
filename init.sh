@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
+# Accept the EPEL gpg key
+rpm --import http://download.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6
+
 # Update the system and install the main servers
-yum install -y httpd postgresql-server
+yum install -y httpd postgresql-server postgresql-contrib
 chkconfig httpd on
 
 # Install the EPEL repository and Node.js
