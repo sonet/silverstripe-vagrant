@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-# Update the system and install the servers
 # Update the system and install the main servers
 yum install -y httpd postgresql-server
 chkconfig httpd on
@@ -18,19 +17,20 @@ yum install -y vim, git
 # use use a custom PHP configuration
 cp /vagrant/etc/php.ini /etc
 
-# install the PostgeSQL database
+# Setup the PostgeSQL database
 PGDIR="/var/lib/pgsql/data"
 USER="postgres"
 if ! [ -d $PGDIR ] || ! [ "$(ls -A $PGDIR)" ]; then
 echo "Setting up postgresql in $PGDIR"
 mkdir -p $PGDIR
 chown -R postgres:postgres /var/lib/pgsql/
-service postgresql initdb --locale en_US.UTF-8 -U $USER --pwfile=/vagrant/etc/pgsql/pg_pw
+service postgresql initdb --locale en_US.UTF-8 -U postgres
 cp /vagrant/etc/pgsql/pg_hba.conf $PGDIR
 chown -R postgres:postgres /var/lib/pgsql/
-echo "postgres:vagrant12345" | chpasswd
+
 chkconfig postgresql on
 fi
+# Reset the postgres user
 service postgresql start
 
 # Setup the web servers root directory
