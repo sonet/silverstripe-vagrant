@@ -20,6 +20,9 @@ yum install -y vim git
 # use use a custom PHP configuration
 cp /vagrant/etc/php.ini /etc
 
+# make the php temporary writable to the web server user
+chown -R vagrant:vagrant /var/lib/php/session/
+
 # Setup the PostgeSQL database
 PGDIR="/var/lib/pgsql/data"
 USER="postgres"
