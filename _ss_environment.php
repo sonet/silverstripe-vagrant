@@ -49,7 +49,7 @@ define('SS_DATABASE_PASSWORD', 'vagrant12345');
  * Set the database name.
  * Assumes the $database global variable in your config is missing or empty.
  */
-define('SS_DATABASE_NAME', 'library');
+define('SS_DATABASE_NAME', 'silverstripe');
 
 /**
  * Boolean/Int. If set, then the system will choose a default database name for you if one isn't give in the $database variable.
