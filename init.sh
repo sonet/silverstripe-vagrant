@@ -59,8 +59,6 @@ fi
 # Prevent the Apache warning "Could not reliably determine the server's fully qualified domain name"
 cp /vagrant/etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf
 
-service httpd start
-
 if [ ! -f /usr/local/bin/composer ]; then
 # Download the latest composer.phar version
 curl -s https://getcomposer.org/installer | php
@@ -74,3 +72,6 @@ fi
 # Custom environment variables, aliases & paths
 cp /vagrant/home/.bashrc /home/vagrant
 cp /vagrant/home/.bash_aliases /home/vagrant
+
+# start the apache server on vagrant mounted
+cp /vagrant/etc/init/vagrant-mounted.conf /etc/init
