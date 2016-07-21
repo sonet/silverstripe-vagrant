@@ -1,26 +1,35 @@
 #!/usr/bin/env bash
 
+# Install the CenrOS Software Collection (SCL)
+yum install centos-release-scl
+
+# Add the Remi repository
+wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
+cp /vagrant/etc/pki/rpm-gpg/RPM-GPG-KEY-remi /etc/pki/rpm-gpg/RPM-GPG-KEY-remi
+#rpm --import http://rpms.remirepo.net/RPM-GPG-KEY-remi
+cp /vagrant/etc/yum.repos.d/remi.repo /etc/yum.repos.d/
+
 # Accept the EPEL gpg key
 rpm --import http://download.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6
-
-# Update the system and install the main servers
-yum install -y httpd postgresql-server postgresql-contrib
-chkconfig httpd on
-
-# Install the EPEL repository and Node.js
 yum -y install epel-release
+
+# Install the EPEL Node.js
 yum -y install nodejs npm --enablerepo=epel
 
-#install PHP including modules
-yum install -y httpd php-devel php-snmp php-xml php-xmlrpc php-soap php-ldap php-pgsql php-mcrypt php-mbstring php-gd php-tidy php-pspell php-pecl-memcache
+# Install the servers including PHP w/ modules
+yum install -y httpd postgresql-server postgresql-contrib php php-pear php-devel php-snmp php-xml php-xmlrpc php-soap php-ldap php-pgsql php-mcrypt php-mbstring php-gd php-tidy php-pspell php-pecl-memcache php-tcpdf  --enablerepo=remi
+chkconfig httpd on
 
 # Install some useful development tools
 yum install -y vim git
 
 # use use a custom PHP configuration
+
 cp /vagrant/etc/php.ini /etc
 
 # make the php temporary writable to the web server user
+mkdir -p /var/lib/php/session/
 chown -R vagrant:vagrant /var/lib/php/session/
 
 # Setup the PostgeSQL database
@@ -75,6 +84,3 @@ cp /vagrant/home/.bash_aliases /home/vagrant
 
 # start the apache server on vagrant mounted
 cp /vagrant/etc/init/vagrant-mounted.conf /etc/init
-
-# the apache user should own the session directory
-chown -R vagrant:vagrant /var/lib/php/session
