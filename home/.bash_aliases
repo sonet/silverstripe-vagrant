@@ -1,0 +1,16 @@
+alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+alias vim="vim -p"
+alias lsg="ls | grep"
+alias bin="cd ~/bin"
+alias redis="redis-cli -s /var/run/redis/redis.sock"
+alias gs="git status"
+alias gl="git log"
+alias gd="git diff"
+alias gc="git commit"
+alias go="git checkout"
+alias gcl="git clean -f -d"
+alias lsd="ls -lad"
+alias ls="ls -la"
+alias c="clear"
+alias node='node --harmony'
+alias finds='grep -r -i --include \*'
