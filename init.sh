@@ -18,7 +18,7 @@ yum install -y epel-release
 yum install -y nodejs npm --enablerepo=epel
 
 # Install the servers including PHP w/ modules
-yum install -y httpd postgresql-server postgresql-contrib php php-pear php-devel php-snmp php-xml php-xmlrpc php-soap php-ldap php-pgsql php-mcrypt php-mbstring php-gd php-tidy php-pspell php-pecl-memcache php-tcpdf vim git --enablerepo=remi
+yum install -y httpd postgresql-server postgresql-contrib php php-pear php-devel php-snmp php-xml php-xmlrpc php-soap php-ldap php-pgsql php-mcrypt php-mbstring php-gd php-tidy php-pspell php-pecl-memcache php-tcpdf vim git --enablerepo=remi php-xcache xcache-admin
 chkconfig httpd on
 
 # use use a custom PHP configuration
