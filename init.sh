@@ -13,12 +13,15 @@ yum install -y centos-release-scl
 rpm --import http://download.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6
 yum install -y epel-release
 
+# Add the PostgreSQL repository
+rpm -Uvh http://yum.postgresql.org/9.5/redhat/rhel-6-x86_64/pgdg-redhat95-9.5-2.noarch.rpm
+
 # Install the EPEL Node.js
-yum install -y nodejs npm --enablerepo=epel
+#yum install -y nodejs npm --enablerepo=epel
 
 # Install the servers including PHP w/ modules
-yum install -y httpd postgresql-server postgresql-contrib php php-pear php-devel php-snmp php-xml php-xmlrpc php-soap php-ldap php-pgsql php-mcrypt php-mbstring php-gd php-tidy php-pspell php-pecl-memcache php-tcpdf vim git --enablerepo=remi php-xcache xcache-admin
-chkconfig httpd on
+yum install -y httpd postgresql95-server postgresql95 php php-pear php-devel php-snmp php-xml php-xmlrpc php-soap php-ldap php-pgsql php-mcrypt php-mbstring php-gd php-tidy php-pspell php-pecl-memcache php-tcpdf vim git php-xcache xcache-admin
+# --enablerepo=remi
 
 # use use a custom PHP configuration
 cp /vagrant/etc/php.ini /etc
@@ -36,30 +39,37 @@ fi
 if ! [ -d /vagrant/html ]; then
 mkdir /vagrant/html
 fi
-if ! [ -d /vagrant/node ]; then
-mkdir /vagrant/node
-fi
+#if ! [ -d /vagrant/node ]; then
+#mkdir /vagrant/node
+#fi
+chkconfig httpd on
 service httpd start
 
 # Setup the PostgeSQL database
-PGDIR="/var/lib/pgsql/data"
-USER="postgres"
-if ! [ -d $PGDIR ] || ! [ "$(ls -A $PGDIR)" ]; then
-echo "Setting up postgresql in $PGDIR"
-mkdir -p $PGDIR
-chown -R postgres:postgres /var/lib/pgsql/
-service postgresql initdb --locale en_US.UTF-8 -U postgres
-cp /vagrant/etc/pgsql/pg_hba.conf $PGDIR
-chown -R postgres:postgres /var/lib/pgsql/
-chkconfig postgresql on
+#PGDIR="/var/lib/pgsql/9.5/data"
+#USER="postgres"
+#if ! [ -d $PGDIR ] || ! [ "$(ls -A $PGDIR)" ]; then
+#echo "Setting up postgresql data in $PGDIR"
+#mkdir -p $PGDIR
+getent passwd postgres > /dev/null 2&>1
+RES=$?
+if [ $RES -eq 0 ]; then
+    echo "postgres user exists"
+else
+    echo "the postgres user does not exist"
+    adduser postgres
+    echo -e "vagrant12345\nvagrant12345" | passwd postgres
+    chown -R postgres:postgres /var/lib/pgsql/
 fi
-service postgresql start
+service postgresql-9.5 initdb en_US.UTF-8
+chkconfig postgresql-9.5 on
+service postgresql-9.5 start
 # Post install PostgreSQL setup steps
 sudo -i -u postgres psql -U postgres -c "ALTER USER postgres WITH PASSWORD 'vagrant12345';"
-cp /vagrant/etc/pgsql/pg_hba_md5.conf /var/lib/pgsql/data/pg_hba.conf
-cp /vagrant/etc/pgsql/postgresql.conf /var/lib/pgsql/data/postgresql.conf
+cp /vagrant/etc/pgsql/pg_hba_md5.conf /var/lib/pgsql/9.5/data/pg_hba.conf
+cp /vagrant/etc/pgsql/postgresql.conf /var/lib/pgsql/9.5/data/postgresql.conf
 chown -R postgres:postgres /var/lib/pgsql/
-service postgresql restart
+service postgresql-9.5 restart
 
 # Download the latest composer.phar version
 if [ ! -f /usr/local/bin/composer ]; then
