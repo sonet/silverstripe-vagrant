@@ -4,11 +4,10 @@
 yum install -y centos-release-scl
 
 # Add the Remi repository
-wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
-cp /vagrant/etc/pki/rpm-gpg/RPM-GPG-KEY-remi /etc/pki/rpm-gpg/RPM-GPG-KEY-remi
-#rpm --import http://rpms.remirepo.net/RPM-GPG-KEY-remi
-cp /vagrant/etc/yum.repos.d/remi.repo /etc/yum.repos.d/
+#wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+#rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
+#cp /vagrant/etc/pki/rpm-gpg/RPM-GPG-KEY-remi /etc/pki/rpm-gpg/RPM-GPG-KEY-remi
+#rpm --import https://rpms.remirepo.net/RPM-GPG-KEY-remi
 
 # Accept the EPEL gpg key
 rpm --import http://download.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6
