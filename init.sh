@@ -25,7 +25,7 @@ rpm -Uvh http://yum.postgresql.org/9.5/redhat/rhel-6-x86_64/pgdg-redhat95-9.5-2.
 #yum install -y nodejs npm --enablerepo=epel
 
 # Install the servers including PHP w/ modules
-yum install -y httpd postgresql95-server postgresql95 php php-pear php-devel php-snmp php-xml php-xmlrpc php-soap php-ldap php-pgsql php-mcrypt php-mbstring php-gd php-tidy vim wget
+yum install -y httpd postgresql95-server postgresql95 php php-pear php-devel php-snmp php-xml php-xmlrpc php-soap php-ldap php-pgsql php-mcrypt php-mbstring php-gd php-tidy vim wget rsync
 # php-pspell php-pecl-memcache php-tcpdf php-xcache xcache-admin git ruby python
 # --enablerepo=remi
 
