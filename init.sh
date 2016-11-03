@@ -96,3 +96,9 @@ cp /vagrant/etc/init/vagrant-mounted.conf /etc/init
 # Change the ownership of the php session dir to the web server user
 sudo chown -R vagrant:vagrant /var/lib/php/session/
 
+# Use the postgress password file
+cp /vagrant/etc/pgsql/.pgpass /home/vagrant
+chmod 0600 /home/vagrant/.pgpass
+
+# Fix permissions in the home dir
+chown -R vagrant:vagrant /home/vagrant
