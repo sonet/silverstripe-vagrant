@@ -92,3 +92,7 @@ cp /vagrant/home/.bash_aliases /home/vagrant
 
 # start the apache server on vagrant mounted
 cp /vagrant/etc/init/vagrant-mounted.conf /etc/init
+
+# Change the ownership of the php session dir to the web server user
+sudo chown -R vagrant:vagrant /var/lib/php/session/
+
