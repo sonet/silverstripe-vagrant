@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
+# Howto: https://www.mojowill.com/geek/howto-install-php-5-4-5-5-or-5-6-on-centos-6-and-centos-7/
 
 # Install the CenrOS Software Collection (SCL)
 yum install -y centos-release-scl
 
-# Add the Remi repository
-#wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-#rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
-#cp /vagrant/etc/pki/rpm-gpg/RPM-GPG-KEY-remi /etc/pki/rpm-gpg/RPM-GPG-KEY-remi
-#rpm --import https://rpms.remirepo.net/RPM-GPG-KEY-remi
+# Add the Epel & Remi repositories
+wget http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
+cp /vagrant/etc/pki/rpm-gpg/RPM-GPG-KEY-remi /etc/pki/rpm-gpg/RPM-GPG-KEY-remi
+rpm --import https://rpms.remirepo.net/RPM-GPG-KEY-remi
 
 # Accept the EPEL gpg key
 rpm --import http://download.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6
@@ -20,7 +22,8 @@ rpm -Uvh http://yum.postgresql.org/9.5/redhat/rhel-6-x86_64/pgdg-redhat95-9.5-2.
 #yum install -y nodejs npm --enablerepo=epel
 
 # Install the servers including PHP w/ modules
-yum install -y httpd postgresql95-server postgresql95 php php-pear php-devel php-snmp php-xml php-xmlrpc php-soap php-ldap php-pgsql php-mcrypt php-mbstring php-gd php-tidy php-pspell php-pecl-memcache php-tcpdf vim git php-xcache xcache-admin
+yum install -y httpd postgresql95-server postgresql95 php php-pear php-devel php-snmp php-xml php-xmlrpc php-soap php-ldap php-pgsql php-mcrypt php-mbstring php-gd php-tidy vim wget
+# php-pspell php-pecl-memcache php-tcpdf php-xcache xcache-admin git ruby python
 # --enablerepo=remi
 
 # use use a custom PHP configuration
